@@ -1,0 +1,25 @@
+name: Check
+on: push
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: hello_fastapi Install dependencies
+      run: pip install --editable .[test]
+      working-directory: hello-fastapi/
+    - name: hello_fastapi Run tests
+      run: python -m unittest discover
+      working-directory: hello-fastapi/
+    - name: hello_flask Install dependencies
+      run: pip install --editable .
+      working-directory: hello-flask/
+    - name: hello_flask Run tests
+      run: python -m unittest discover
+      working-directory: hello-flask/
+    - name: Install hello_httpserver dependencies
+      run: pip install --editable .
+      working-directory: hello-httpserver/
